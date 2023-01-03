@@ -1,16 +1,9 @@
-import { Controller, Get, Header, HttpCode, Post } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
-    @Get('abc*')
-    @HttpCode(418)
-    @Header('Cache-Control', 'none')
-    hello(): string {
-        return 'hello!';
-    }
-
-    @Post()
-    create(): string {
-        return 'this is create method!';    
+    @Get(':id')
+    hello(@Param('id') id: string): string {
+        return `ID is ${id}`;
     }
 }
