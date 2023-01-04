@@ -8,11 +8,7 @@ export class CatsController {
 
     @Post()
     create(@Body() body: Cat) {
-        this.catsService.create({
-            name: body?.name,
-            age: body?.age,
-            breed: body?.breed
-        });
+        this.catsService.create(body);
     }
     @Get()
     findAll(): Cat[] {
