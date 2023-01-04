@@ -1,9 +1,21 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { CatsService } from './cats.service';
+import { Cat } from './cats.interface';
 
 @Controller('cats')
 export class CatsController {
-    @Get(':id')
-    hello(@Param('id') id: string): string {
-        return `ID is ${id}`;
+    constructor(private catsService: CatsService) {}
+
+    @Post()
+    create(@Body() body: Cat) {
+        this.catsService.create({
+            name: body?.name,
+            age: body?.age,
+            breed: body?.breed
+        });
+    }
+    @Get()
+    findAll(): Cat[] {
+        return this.catsService.findAll();
     }
 }
