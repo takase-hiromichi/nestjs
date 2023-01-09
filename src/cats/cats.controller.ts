@@ -1,12 +1,9 @@
-import { Controller, Get, HttpException, HttpStatus, UseFilters } from '@nestjs/common';
-import { CustomException } from 'src/exception/custom.exception';
-import { HttpFilter } from '../filter/http/http.filter';
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
 
 @Controller('cats')
 export class CatsController {
-    @Get()
-    @UseFilters(new HttpFilter())
-    findAll() {
-        throw new CustomException();
+    @Get(':id')
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        return id;
     }
 }
