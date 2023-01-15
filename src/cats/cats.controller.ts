@@ -4,9 +4,10 @@ import { Cat } from "./cats.interface";
 import { CatsService } from "./cats.service";
 import { ValidationPipe } from "../pipe/validation/validation.pipe";
 import { LoggingInterceptor } from "src/interceptor/logging/logging.interceptor";
+import { TransformInterceptor } from "src/interceptor/transform/transform.interceptor";
 
 @Controller("cats")
-@UseInterceptors(LoggingInterceptor)
+@UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
