@@ -3,11 +3,9 @@ import { CreateCatDto } from "src/dto/cat/cat.dto";
 import { Cat } from "./cats.interface";
 import { CatsService } from "./cats.service";
 import { ValidationPipe } from "../pipe/validation/validation.pipe";
-import { LoggingInterceptor } from "src/interceptor/logging/logging.interceptor";
-import { TransformInterceptor } from "src/interceptor/transform/transform.interceptor";
+import { User } from "src/decorator/user/user.decorator";
 
 @Controller("cats")
-@UseInterceptors(LoggingInterceptor, TransformInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -18,5 +16,10 @@ export class CatsController {
   @Get()
   findAll(): Cat[] {
     return this.catsService.findAll();
+  }
+
+  @Get("abc")
+  async findOne(@User() user: any): Promise<void> {
+    console.log(user);
   }
 }
