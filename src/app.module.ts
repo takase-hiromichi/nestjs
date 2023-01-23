@@ -5,7 +5,6 @@ import { AppService } from "./app.service";
 import { CatsController } from "./cats/cats.controller";
 import { CatsModule } from "./cats/cats.module";
 import { logger } from "./middleware/logger/logger.middleware";
-import { User } from "./user/entities/user.entity";
 import { UserModule } from "./user/user.module";
 
 @Module({
@@ -17,8 +16,8 @@ import { UserModule } from "./user/user.module";
       username: "root",
       password: "root",
       database: "test",
-      entities: [User],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     CatsModule,
     UserModule,
