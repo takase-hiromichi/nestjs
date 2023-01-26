@@ -1,18 +1,13 @@
 import { Module } from "@nestjs/common";
-import { env } from "process";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { CatsController } from "./cats.controller";
+import { Cat } from "./cats.entity";
 import { CatsService } from "./cats.service";
-import { CatsDevService } from "./cats.service.dev";
-import { CatsProdService } from "./cats.service.prod";
+import { CatsSubscriber } from "./cats.subscriber";
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Cat])],
   controllers: [CatsController],
-  providers: [
-    {
-      provide: CatsService,
-      useClass:
-        env.NODE_ENV === "development" ? CatsDevService : CatsProdService,
-    },
-  ],
+  providers: [CatsSubscriber, CatsService],
 })
 export class CatsModule {}

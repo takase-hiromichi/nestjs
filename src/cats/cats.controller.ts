@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
 import { CreateCatDto } from "src/dto/cat/cat.dto";
-import { Cat } from "./cats.interface";
 import { CatsService } from "./cats.service";
 import { ValidationPipe } from "../pipe/validation/validation.pipe";
 import { User } from "src/decorator/user/user.decorator";
+import { Cat } from "./cats.entity";
 
 @Controller("cats")
 export class CatsController {
@@ -14,8 +14,8 @@ export class CatsController {
     this.catsService.create(createCatDto);
   }
   @Get()
-  findAll(): Cat[] {
-    return this.catsService.findAll();
+  async findAll(): Promise<Cat[]> {
+    return await this.catsService.findAll();
   }
 
   @Get("abc")
